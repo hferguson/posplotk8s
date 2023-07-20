@@ -3,11 +3,10 @@
  * an address, and get me address for lat-long co-ordinates
  * We are relying on positionstack API
  */
-
 const express = require('express');
 const forwardRoute = require('./routes/forward-lookup');
 const reverseRoute = require('./routes/reverse-lookup');
-const dummyRoute = require('./routes/dummy-res');
+const healthcheckRoute = require('./routes/healthcheck');
 
 const  {json} = require('body-parser');
 
@@ -16,11 +15,8 @@ app.set('trust proxy', true);
 app.use(json());
 app.use(forwardRoute);
 app.use(reverseRoute);
-app.use(dummyRoute);
+app.use(healthcheckRoute);
 
-app.get('/dummy2', async (req, res) => {
-    res.status(200).send("Hi there");
-});
 
 app.all('*'),  async (req, res) => {
     res.status("404").send("This is not your page");
