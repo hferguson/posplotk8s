@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: healthmon-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: healthmon
+  template:
+    metadata:
+      labels:
+        app: healthmon
+    spec:
+      containers:
+        - name: healthmon
+          image: hfcdevops/healthmon
+          env:
+            - name: serviceURLs
+              value: 'http://posapi-svc:3000/api/position/healthcheck,http://waypointstore-svc:3000/api/waypoints/healthcheck'
+            - name: serviceNames
+              value:  'Position-API,Waypoints-Storage-API'
+---
+apiVersion: v1
+kind: Service 
+metadata:
+  name: healthmon-svc
+spec:
+  selector:
+    app: healthmon 
+  ports:
+    - name: healthmon 
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

@@ -6,7 +6,7 @@ require('dotenv').config();
 const api_key = process.env.GEOAPIKEY;
 const baseURL = process.env.GEOURL_BASE;
 
-router.post('/posapi/findcoords', async (req, res, next) => {
+router.post('/api/position/findcoords', async (req, res, next) => {
     // Expectation is body contains JSON object with the following
     // address_string - 123 Fake St
     // city - Springfileld

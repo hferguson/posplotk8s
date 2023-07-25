@@ -1,0 +1,44 @@
+apiVersion: skaffold/v3
+kind: Config
+deploy:
+  kubectl: {}
+manifests: 
+  rawYaml:
+      - ./infra/k8s/*
+      - ./infra/k8s-dev/*
+build:
+  local:
+    push: false
+  artifacts:
+  - image: hfcdevops/posapi
+    context: posapi
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+        - src: 'src/**/*.js'
+          dest: .
+  - image: hfcdevops/healthmon
+    context: healthmon
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+        - src: 'src/**/*.js'
+          dest: .
+  - image: hfcdevops/waypointstore
+    context: waypointstore
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+        - src: 'src/**/*.js'
+          dest: .
+  - image: hfcdevops/posplot-client
+    context: client
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+        - src: '**/*.js'
+          dest: .

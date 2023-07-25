@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: posapi-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: posapi
+  template:
+    metadata:
+      labels:
+        app: posapi
+    spec:
+    # Current warnings due to not specifying resource limits. 
+    # See https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+    # if you deploy someplace where resource limitations would be useful
+      containers:
+        - name: posapi
+          image: hfcdevops/posapi
+          env: 
+            - name: GEOURL_BASE
+              value: 'http://api.positionstack.com/v1'
+            - name: GEOAPIKEY 
+              value: '36943adbd027ea50a54e104a963fa114'
+
+        
+---
+apiVersion: v1
+kind: Service 
+metadata:
+  name: posapi-svc
+spec:
+  selector:
+    app: posapi 
+  ports:
+    - name: posapi 
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

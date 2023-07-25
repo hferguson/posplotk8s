@@ -1,0 +1,30 @@
+{
+  "name": "waypointstore",
+  "version": "1.0.0",
+  "description": "Microservice to store waypoints in a MongoDB database",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "jest --watchAll --no-cache"
+  },
+  "author": "Hugh Ferguson",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mongoose": "^7.4.0",
+    "mongoose-double": "^0.0.1"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "setupFilesAfterEnv": [
+      "./src/test/setup.js"
+    ]
+  },
+  "devDependencies": {
+    "@shelf/jest-mongodb": "^4.1.7",
+    "jest": "^29.6.1",
+    "mongodb-memory-server": "^8.13.0",
+    "supertest": "^6.3.3"
+  }
+}

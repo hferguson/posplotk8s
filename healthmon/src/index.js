@@ -11,7 +11,7 @@ const serviceNames = process.env.serviceNames.split(',');
 const serviceStats = [];
 
 const start = async() => {
-    console.log("Starting pos API service");
+    console.log("Starting healthcheck API service");
     let i;
     for (i=0;i<serviceURLs.length;i++) {
         let statusObj = {name: serviceNames[i], status: "unknown", statusDate: new Date()};
@@ -21,24 +21,29 @@ const start = async() => {
         for (i=0;i<serviceURLs.length;i++) {
             let status = true;
             try {
-                console.log(`Checking service ${serviceNames[i]}`);
                 let url = serviceURLs[i];
-                let resp = await axios.get(url);
+        
+                console.log(`Checking service ${serviceNames[i]}`);
+                console.log(`Service Endpoint: ${url}`);
 
+                let resp = await axios.get(url);
+                let data = resp.data;
+                console.log(data);
+                console.log(`Health check response received from svc ${data.name} at ${data.date}`);
             } catch (error) {
                 console.log(`Error while checking service ${serviceNames[i]}`);
                 console.error(error);
                 status = false;
             }
-            updateSvcStatus(serviceName[i], status);
+            updateSvcStatus(serviceNames[i], status);
         }
-        await new Promise(r => setTimeout(r, 5000));
+        await new Promise(r => setTimeout(r, 10000));
     }
 };
 
 const updateSvcStatus = (name, status) => {
     for (let i=0;i<serviceStats.length;i++) {
-        let obj = sericeStats[i];
+        let obj = serviceStats[i];
         if (obj.name === name) {
             obj.status = status;
             obj.statusDate = new Date();
@@ -47,12 +52,10 @@ const updateSvcStatus = (name, status) => {
     }
 };
 
-// Restrict this service to servicing only GET requests
-router.use((req, res, next) => {
-    res.header('Access-Control-Allow-Methods', 'GET');
-});
 
-router.get('/healthmon', async (req, res) => {
+
+router.get('/api/healthmon/scan', async (req, res) => {
+    console.log("Healthmonitor service request received");
    return res.json(serviceStats);
 });
 app.set('trust proxy', true);

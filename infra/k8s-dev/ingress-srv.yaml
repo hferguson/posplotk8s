@@ -1,0 +1,40 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-service
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/use-regex: 'true'
+spec:
+  rules:
+    - host: mywebsite.local
+      http:
+        paths:
+          - path: /api/healthmon/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: healthmon-svc
+                port:
+                  number: 3000
+          - path: /api/position/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: posapi-svc
+                port:
+                  number: 3000   
+          - path: /api/waypoints/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: waypointstore-svc
+                port:
+                  number: 3000
+          - path: /?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: client-svc
+                port:
+                  number: 3000

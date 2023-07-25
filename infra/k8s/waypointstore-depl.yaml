@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: waypointstore-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: waypointstore
+  template:
+    metadata:
+      labels:
+        app: waypointstore
+    spec:
+    # Current warnings due to not specifying resource limits. 
+    # See https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+    # if you deploy someplace where resource limitations would be useful
+      containers:
+        - name: waypointstore
+          image: hfcdevops/waypointstore
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "200m"
+          env: 
+            - name: MONGO_URI
+              value: 'mongodb://waypointstore-mongo-svc:27017/waypoints'
+            
+
+        
+---
+apiVersion: v1
+kind: Service 
+metadata:
+  name: waypointstore-svc
+spec:
+  selector:
+    app: waypointstore 
+  ports:
+    - name: waypointstore 
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

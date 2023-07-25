@@ -1,0 +1,22 @@
+{
+  "name": "client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "bootstrap": "^5.3.0",
+    "dotenv": "^16.3.1",
+    "next": "^13.4.11",
+    "pigeon-maps": "^0.21.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}

@@ -12,7 +12,7 @@ console.log(`Using endpoint ${baseURL}`);
 /**
  * Perform reverse lookup on co-ordinates.
  */
-router.get('/posapi/addrfrompos/:lat/:lon', async (req, res, next) => {
+router.get('/api/position/addrfrompos/:lat/:lon', async (req, res, next) => {
     console.log("Received address lookup request");
     
     const lat = req.params.lat;
@@ -27,6 +27,7 @@ router.get('/posapi/addrfrompos/:lat/:lon', async (req, res, next) => {
     //console.log(`Using payload data ${params.query}`);
     //console.log(`Calling ${process.env.GEOURL_BASE}/reverse`)
     try {
+        console.log("Calling remote API");
        const remResp =  await axios.get(`${baseURL}/reverse`, {params});
        console.log("Response received");
        //console.log(remResp.data);
@@ -40,7 +41,8 @@ router.get('/posapi/addrfrompos/:lat/:lon', async (req, res, next) => {
         const statusCode = resp.status;
         const statusMsg = resp.statusText;
         error.custom_msg = statusMsg;
-        next(error);
+        //next(error);
+        return res.status(500).send(statusMsg);
     };
 
 });
