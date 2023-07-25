@@ -25,12 +25,12 @@ router.get('/api/waypoints/center', async (req, res) => {
         if(num > 0) {
             for (let i=0;i<num;i++) {
                 const wp = waypoints[i];
-                const coords = wp.location.coordinates; // An array with two elements
+                const coords = wp.location.coordinates; // An array with two elements, lon first in mongo
                 if (coords.length > 1) {
                     if (!isNaN(coords[0]) && !isNaN(coords[1])) {
                         wpCount++;
-                        avgLat += coords[0];
-                        avgLon += coords[1];
+                        avgLat += coords[1];
+                        avgLon += coords[0];
                     }
                 }
             }
@@ -38,6 +38,8 @@ router.get('/api/waypoints/center', async (req, res) => {
                 payload.latCtr = avgLat/wpCount;
                 payload.lonCtr = avgLon/wpCount;
             }
+        } else {
+            console.log(`Warning: no waypoints found!`);
         }
         res.status(200).send(payload);
 

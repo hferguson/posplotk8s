@@ -25,5 +25,6 @@ app.use(wpfetch);
 app.use(wpsave);
 app.use(wpgetbyid);
 app.use(wpdelete);
+app.use(wpfind);
 
 module.exports = app;

@@ -18,12 +18,26 @@ global.wpCreate = async (wp) => {
     return point;
 };
 
+global.wpCreateWithCoords = async(lat, lon) => {
+    let payload = {}
+    payload.title = `Waypoint ${lat}, ${lon}`;
+    payload.location = {
+        type: 'Point',
+        coordinates: [lon, lat]
+    };
+    payload.address_string = "123 Fake St.";
+    payload.city = "Fake town";
+    payload.region = "ON";
+    payload.country = "Canada";
+    await wpCreate(payload);
+};
+
 global.wpCreateOne = async () => {
     let payload = {};
     payload.title = "Waypoint # 0";
     payload.location = {
         type: 'Point',
-        coordinates: [45.1234, -75.1234]
+        coordinates: [-75.1234, 45.1234]
     };
     payload.address_string = "123 Fake St.";
     payload.city = "Fake town";
@@ -45,7 +59,7 @@ global.wpCreateSeries = async (num) => {
         payload.title = `Waypoint # ${i}`;
         payload.location = {
             type: 'Point',
-            coordinates: [lat, lon]
+            coordinates: [lon, lat]
         };
         payload.address_string = "123 Fake St.";
         payload.city = "Fake town";

@@ -14,12 +14,21 @@ it('Returns 10 items previously saved to db', async () => {
 });
 
 it('Gets a centrepoint for 10 coordinates', async () => {
-    // Get 10 random waypoints
-    await wpCreateSeries(10);
+    // Get 4 coords that make a square
+    const coords = [[45,-75], [46, -75], [46,-76], [45, -76] ];
+    for (let i=0;i<coords.length;i++) {
+        console.log(`Creating waypoint ${i}`);
+        let wp = await wpCreateWithCoords(coords[i][0], coords[i][1]);
+    }
+   
 
     // Now fetch
     const resp = await request(app)
                         .get('/api/waypoints/center')
                         .expect(200);
+    // expect the centre to be at 45.5, -75.5
+    const ctr = resp.body;
+    expect(ctr.latCtr).toEqual(45.5);
+    expect(ctr.lonCtr).toEqual(-75.5);
     console.log(resp.body);
 });

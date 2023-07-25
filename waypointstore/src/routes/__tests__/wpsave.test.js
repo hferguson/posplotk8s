@@ -6,7 +6,7 @@ it('saves a waypoint to the database', async () => {
                 title: "Generic waypoint",
                 location: {
                     type: 'Point',
-                    coordinates: [45.12345, -75.12345]
+                    coordinates: [-75.12345, 45.12345]
                 },
                 address_string: "123 Fake St",
                 city: "Nowhereville",

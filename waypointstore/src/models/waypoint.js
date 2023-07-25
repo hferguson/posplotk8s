@@ -54,5 +54,8 @@ const WaypointSchema = new Schema( {
     }
 });
 
+// create geo-spatial index
+WaypointSchema.index({"location": "2dsphere"});
+
 const WaypointsModel = mongoose.model('waypoints', WaypointSchema);
 module.exports = WaypointsModel;
