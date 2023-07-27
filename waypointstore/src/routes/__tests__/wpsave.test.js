@@ -14,7 +14,6 @@ it('saves a waypoint to the database', async () => {
                 country: "Canada"
                 };
     const wpSaved = await wpCreate(wp);
-    
-    console.log(`ID = ${wpSaved.id}`);
+   
    
 });

@@ -16,8 +16,9 @@ router.get('/api/waypoints/fetch', async (req, res) => {
 });
 
 router.get('/api/waypoints/center', async (req, res) => {
-    const payload = {latCtr: 0, lonCtr: 0};
+    const payload = {latCtr: 0, lonCtr: 0, numpoints: 0};
     try {
+        console.log("Attempting to find center");
         const waypoints = await WaypointsModel.find();
         const num = waypoints.length;
         let  avgLat = avgLon = 0;
@@ -37,6 +38,7 @@ router.get('/api/waypoints/center', async (req, res) => {
             if (wpCount > 0) {
                 payload.latCtr = avgLat/wpCount;
                 payload.lonCtr = avgLon/wpCount;
+                payload.numpoints = wpCount;
             }
         } else {
             console.log(`Warning: no waypoints found!`);
@@ -44,6 +46,7 @@ router.get('/api/waypoints/center', async (req, res) => {
         res.status(200).send(payload);
 
     } catch (error) {
+        console.log(error);
         return res.status(500).send({error: error});
     }
 });

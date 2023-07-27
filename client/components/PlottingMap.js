@@ -21,11 +21,11 @@ const PlottingMap = ({centre, waypoints, selectedWP, setWaypoint, setAddresses})
         setWaypoint(payload);
     }
     const handleMapClick = (event) => {
-        //console.log("Map click");
+        console.log("Map click");
         //console.log(event);
         const [lat,lon] = event.latLng;
         
-        axios.get(`/api/reports/addrlup/${lat}/${lon}`)
+        axios.get(`/api/position/addrfrompos/${lat}/${lon}`)
             .then(res => {
                     console.log(res)
                     if (res.hasOwnProperty('data')) {
@@ -42,29 +42,35 @@ const PlottingMap = ({centre, waypoints, selectedWP, setWaypoint, setAddresses})
         setWaypoint(null);
     }
 
-
+   
     return (
+            
             <Map height={400} width={600} center={[centre.lat, centre.lon]} defaultZoom={14} onClick={handleMapClick}>
             {waypoints.map((wp) => {
+                // See note below about MongoDB and co-ordinates.
+                let coords = wp.location.coordinates
                 return (
                     
-                    <Marker key={wp._id} 
+                    <Marker key={wp.id} 
                             width={25} 
-                            anchor={[wp.lat, wp.lon]}
+                            anchor={[coords[1], coords[0]]}
                             payload={wp} 
-                            color={selectedWP != null && selectedWP._id === wp._id ? 'yellow' : 'red'}
+                            color={selectedWP != null && selectedWP.id === wp.id ? 'yellow' : 'red'}
                             onClick={handleClick} />
                 )
             })}
             {/** 
              * to display a pop-up text on the map, we have to use an overlay from the Pigeon
              * library that we're using to display the map. Bootstrap Modal just won't show up.
+             * A note about the coordinates.  To allow MongoDB to be able to geo search, I had to
+             * store the coordinates in a location object with a Type of Point, and coordinates as an array
+             * with longitude first.  Hence array element 1 in front of 0.
              */}
             {selectedWP != null &&
-                <Overlay anchor={[selectedWP.lat, selectedWP.lon]}>
+                <Overlay anchor={[selectedWP.location.coordinates[1], selectedWP.location.coordinates[0]]}>
                     <div className="rptOverlay">
                         
-                        <p className="modal-title">{selectedWP.address_string}</p>
+                        <p className="modal-title">{selectedWP.title}</p>
                         <button type="button" className="btn-close" onClick={resetRptModal}>X</button>
                              
                     </div>

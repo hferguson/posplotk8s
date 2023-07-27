@@ -4,8 +4,10 @@ require('dotenv').config();
 const start = async () => {
   console.log("Waypoint service Starting up...");
   
-  if (!process.env.MONGO_URI || !process.env.MONGO_URL) {
+  if (!process.env.MONGO_URI && !process.env.MONGO_URL) {
+    //console.log(process.env);
     throw new Error('No MONGO_URI env variable set');
+
   }
   try {
     

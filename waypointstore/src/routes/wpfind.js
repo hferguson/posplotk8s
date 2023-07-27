@@ -23,7 +23,7 @@ router.get('/api/waypoints/find/:lat/:lon/:range', async (req, res) => {
                                                 });
         res.status(200).send(resp);
     } catch (error) {
-        console.log(error);w
+        console.log(error);
         return res.status(500).send({error: error});
     }
 });

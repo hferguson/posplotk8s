@@ -10,7 +10,7 @@ router.get('/api/waypoints/get/:id', async (req, res) => {
     let wp;
     let statusCode = 200;
     const errObj = {};
-    console.log("Get by ID called");
+    
     try {
         wp = await WaypointsModel.findById({_id: new mongoose.Types.ObjectId(id)});
 
