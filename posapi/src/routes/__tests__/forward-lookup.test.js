@@ -14,7 +14,7 @@ it('returns correct coordinates for address', async () => {
     console.log(`Testing with street address ${address_string}, ${city}`);
     const payload = {address_string, city, state_prov, country};
     const resp = await request(app)
-                .post(`/posapi/findcoords`)
+                .post(`/api/position/findcoords`)
                 .send(payload)
                 .expect(200);
 

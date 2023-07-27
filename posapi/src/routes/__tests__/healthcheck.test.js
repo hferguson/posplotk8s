@@ -3,7 +3,7 @@ const app = require('../../app');
 
 it('returns a 200 response', async () => {
     await request(app)
-    .get('/posapi/healthcheck')
+    .get('/api/position/healthcheck')
     .send()
     .expect(200);
 })

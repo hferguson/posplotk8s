@@ -7,7 +7,7 @@ const lon = testparms.lon;
 
 it('Returns a valid address', async () => {
     const resp = await request(app)
-    .get(`/posapi/addrfrompos/${lat}/${lon}`)
+    .get(`/api/position/addrfrompos/${lat}/${lon}`)
     .send()
     .expect(200);
     const data = resp.body.data;
