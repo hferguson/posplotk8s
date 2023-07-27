@@ -1,3 +1,4 @@
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -15,10 +16,18 @@ spec:
       containers:
       - name: waypointstore-mongo
         image: mongo
+        args: ["--dbpath", "/data/db"]
         resources:
           limits:
             memory: "128Mi"
             cpu: "200m"
+        volumeMounts:
+          - name: "mongo-data-dir"
+            mountPath: "/data/db"
+      volumes:
+        - name: "mongo-data-dir"
+          persistentVolumeClaim:
+            claimName: "mongo-data"
 ---
 apiVersion: v1
 kind: Service
@@ -32,4 +41,7 @@ spec:
     protocol: TCP
     port: 27017
     targetPort: 27017
+---
+  
+
 
