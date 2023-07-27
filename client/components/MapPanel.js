@@ -48,6 +48,9 @@ const MapPanel = () => {
     const selectAddressForRpt = async (address, label) => {
         //console.log(address);
         setMapAddrs([]);  // get rid of list
+        if (address === null || address === undefined) {
+            return;
+        }
         await saveWaypoint(address, label);
 
         setSelMapAddr(address); // set selected address in state to be passed into editor

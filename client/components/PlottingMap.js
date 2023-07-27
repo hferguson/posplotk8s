@@ -71,7 +71,7 @@ const PlottingMap = ({centre, waypoints, selectedWP, setWaypoint, setAddresses})
                     <div className="rptOverlay">
                         
                         <p className="modal-title">{selectedWP.title}</p>
-                        <button type="button" className="btn-close" onClick={resetRptModal}>X</button>
+                        <button type="button" className="btn-close" onClick={resetRptModal}></button>
                              
                     </div>
                 </Overlay>
