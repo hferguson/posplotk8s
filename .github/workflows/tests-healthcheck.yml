@@ -1,0 +1,12 @@
+name: tests
+
+on:
+  pull_request
+    paths: 
+      - 'healthmon/**'
+jobs:
+  buinds:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: cd healthmon && npm install && npm run tests:ci
