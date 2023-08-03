@@ -6,6 +6,7 @@ const lat = testparms.lat;
 const lon = testparms.lon;
 
 it('Returns a valid address', async () => {
+    //setTimeout(function() {}, 1000);
     const resp = await request(app)
     .get(`/api/position/addrfrompos/${lat}/${lon}`)
     .send()
@@ -29,6 +30,7 @@ it('Returns a valid address', async () => {
         
     }
     expect(equality).toEqual(true);
+   
 });
 
 

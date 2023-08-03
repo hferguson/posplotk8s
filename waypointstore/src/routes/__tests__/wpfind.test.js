@@ -29,4 +29,28 @@ console.log(`${lat}, ${lon}`);
     const waypoints = resp.body;
     expect(waypoints.length).toEqual(2);
     console.log(`Returned ${waypoints.length} waypoints`);
-})
+});
+
+it('Can find all points within a given geo box', async () => {
+    const botLeft = [45.5, -75.6];
+    const topRight = [45.7, -75.2];
+    const latBase = 45.6;
+    const lonBase = -75.4;
+    const payload = {bottomLeft: botLeft, topRight: topRight};
+
+    for (let i=0;i<10;i++) {
+        const lat = latBase + i*.1;
+        const lon = lonBase + i*.1;
+        console.log(`${lat}, ${lon}`);
+        await wpCreateWithCoords(lat, lon );
+    }
+
+    const resp = await request(app)
+                        .post('/api/waypoints/findwithin')
+                        .send(payload)
+                        .expect(200);
+    const waypoints = resp.body;
+    console.log(waypoints);
+    expect(waypoints.length).toEqual(2);
+
+});

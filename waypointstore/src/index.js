@@ -10,7 +10,7 @@ const start = async () => {
 
   }
   try {
-    
+    console.log(`Connecting with Mongo URI ${process.env.MONGO_URI}, and ${process.env.MONGO_USER}`);
     const dbURL = process.env.MONGO_URI || process.env.MONGO_URL;
     console.log(`Connecting to database using URI ${dbURL}`);
     await mongoose.connect(dbURL);  // No options since v6

@@ -1,0 +1,10 @@
+.mapComponents {
+    display: flex;
+    width: 100%;
+}
+
+.mapComponent {
+    flex: 1;
+    border: 2px solid blue;
+    margin: 5px;
+}
