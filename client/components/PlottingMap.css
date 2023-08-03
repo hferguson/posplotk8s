@@ -7,3 +7,7 @@
     white-space: nowrap;
     z-index: 1000;
   }
+.rptOverlayTitleBar {
+  background: rgb(201, 201, 201);
+  border-bottom: solid 1px black;
+}

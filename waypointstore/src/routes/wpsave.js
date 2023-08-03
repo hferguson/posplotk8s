@@ -4,6 +4,7 @@ const WaypointsModel = require('../models/waypoint');
 
 router.post('/api/waypoints/save', async (req, res) => {
     const {title, location, address_string, city, region, country} = req.body;
+    console.log(req.body);
     let payload = {};
     try {
         console.log("Attempting to save");

@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.css';
+import '../components/MapPanel.css';
 import '../components/PlottingMap.css';
 /**
  * The purpose of this file is to apply a bootstrap "wrapper" around each page in this
