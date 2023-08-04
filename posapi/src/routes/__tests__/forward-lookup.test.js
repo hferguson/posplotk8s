@@ -12,6 +12,7 @@ const country = testparms.country;
 
 it('returns correct coordinates for address', async () => {
     console.log(`Testing with street address ${address_string}, ${city}`);
+    //setTimeout(function() {}, 1000);
     const payload = {address_string, city, state_prov, country};
     const resp = await request(app)
                 .post(`/api/position/findcoords`)
@@ -19,7 +20,7 @@ it('returns correct coordinates for address', async () => {
                 .expect(200);
 
     const addresses = resp.body;
-    //console.log(addresses);
+    console.log(addresses);
     let addr; 
     let equality = false;
     for (let i = 0; i<addresses.length;i++) {
@@ -35,5 +36,6 @@ it('returns correct coordinates for address', async () => {
 
     }
     expect(equality).toEqual(true);
+   
 });
 

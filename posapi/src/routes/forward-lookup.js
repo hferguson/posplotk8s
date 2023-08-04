@@ -1,5 +1,6 @@
 const express = require('express');
 const axios = require('axios');
+
 const router = express.Router();
 
 require('dotenv').config();
@@ -12,6 +13,9 @@ router.post('/api/position/findcoords', async (req, res, next) => {
     // city - Springfileld
     // state_prov - OH
     // country - USA
+    console.log(req.body);
+    //return provider.getCoordsFromAddress(req.body);
+    
     const {address_string, city, state_prov, country} = req.body;
     const query_string = `${address_string} ${city}, ${state_prov},  ${country}`;
     const params = {
@@ -20,8 +24,9 @@ router.post('/api/position/findcoords', async (req, res, next) => {
     };
     const url = `${baseURL}/forward`;
     try {
-        console.log(`Using query string ${query_string}`);
+        //console.log(`Using query string ${query_string}`);
         const remResp = await axios.get(url, {params});
+        //console.log(remResp);
         const data = remResp.data.data;
         //console.log(data);
         return res.json(data);
@@ -31,10 +36,13 @@ router.post('/api/position/findcoords', async (req, res, next) => {
         const statusCode = resp.status;
         const statusMsg = resp.statusText;
         error.custom_msg = statusMsg;
-        console.log(`error calling API on url ${url}`);
-        console.log(statusMsg);
-        next(error);
+        //console.log(`error calling API on url ${url}`);
+        //console.log(statusMsg);
+        //console.log(statusCode);
+        //next(error);
+        return res.status(statusCode).send(statusMsg);
     }
+    
 });
 
 module.exports = router;

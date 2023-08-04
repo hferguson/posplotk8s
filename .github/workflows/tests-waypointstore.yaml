@@ -1,0 +1,12 @@
+name: tests-waypointstore
+
+on:
+  pull_request
+    paths: 
+      - 'waypointstore/**'
+jobs:
+  buinds:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: cd waypointstore && npm install && npm run tests:ci

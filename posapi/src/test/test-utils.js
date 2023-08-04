@@ -13,7 +13,6 @@ const utilsPkg = {
         return (latDiff<1 && lonDiff<1);
     },
    
-
 };
 module.exports = utilsPkg;
 

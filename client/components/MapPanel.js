@@ -9,9 +9,11 @@ import axios from 'axios';
 import getCircularReplacer from '../utils/circ-ref-utils';
 import PlottingMap from './PlottingMap';
 import AddressListDlg from './AddressListDlg';
+import WaypointsList from './WaypointsList';
 
 const MapPanel = () => {
     // Various state variables to use
+    const [pointsOnMap, setPointsOnMap] = useState([]); // waypoints that are on the map itself
     const [mapaddrs,setMapAddrs] = useState([]);    // Addresses found when user clicks on map
     const [waypoints, setWaypoints] = useState([]); // waypoints already stored in bylaw db
     const [mapCtr, setMapCtr] = useState({          // calculated map center - defaults to Sandy Hill
@@ -46,7 +48,7 @@ const MapPanel = () => {
      * @param address - address including coordinates and city/state/country info
      */
     const selectAddressForRpt = async (address, label) => {
-        //console.log(address);
+        
         setMapAddrs([]);  // get rid of list
         if (address === null || address === undefined) {
             return;
@@ -56,8 +58,43 @@ const MapPanel = () => {
         setSelMapAddr(address); // set selected address in state to be passed into editor
     };
 
+    // Item in list was clicked. Match to WP on map
+    const handleListClick = async (id) => {
+        for (let i=0;i<waypoints.length;i++) {
+            if (waypoints[i].id === id) {
+                setSelWP(waypoints[i]);
+                break;
+            }
+        }
+    } 
+
+    const deleteWaypoint = async (id) => {
+        try {
+            const resp = await axios.delete(`/api/waypoints/delete/${id}`);
+
+            // On success refresh waypoints list
+            await getWaypoints();
+        } catch (error) {
+            setErrorMsg(error.message);
+        }
+    }
     // TBD: May want to move some of these functions into a class into Utils.
     // make this JS file for only parts that are React or React-ajacent. 
+    const getBoundedPoints = async (bounds) => {
+        //console.log("Get Bounded Points called");
+        try {
+            const payload = {bottomLeft: bounds.sw, topRight: bounds.ne};   // transform
+            const resp = await axios.post('/api/waypoints/findwithin', payload);
+
+            const points = resp.data;
+            if (points != undefined && points != null) {
+                //console.log(`Points on map called. ${points.length} waypoints returned`);
+                setPointsOnMap(points);
+            } 
+        } catch (error) {
+            setErrorMsg(error.message);
+        }
+    }
     const getCentre = async () => {
         
         const payload = {lat: mapCtr.lat, lon: mapCtr.lon};
@@ -110,7 +147,7 @@ const MapPanel = () => {
         wp['title']= label.value.length> 0 ? label.value : address.label;
         wp['location'] = loc;
         wp['address_string'] = address.label;
-        wp['city'] = address.city;
+        wp['city'] = address.locality;
         wp['region'] = address.region_code != undefined ? address.region_code : address.region;
         wp['country'] = address.country;
         
@@ -149,9 +186,15 @@ const MapPanel = () => {
                   dismissible >
             <p>{dlgMsg.message}</p>
           </Alert>
-            <PlottingMap centre={mapCtr} waypoints={waypoints} selectedWP={selWP} setWaypoint={setSelWP} setAddresses={setMapAddrs} />
-            <div className="controls">
-                
+            <div className="mapComponents">
+            <PlottingMap centre={mapCtr} 
+                        waypoints={waypoints} 
+                        selectedWP={selWP} 
+                        setWaypoint={setSelWP} 
+                        setAddresses={setMapAddrs} 
+                        setWPlist={getBoundedPoints} 
+                        delWP={deleteWaypoint} />
+            <WaypointsList waypoints={pointsOnMap} clickHandler={handleListClick} />
             </div>
             <AddressListDlg addresses={mapaddrs} addressHandler={selectAddressForRpt} />
         </div>
