@@ -31,15 +31,17 @@ router.post('/api/position/findcoords', async (req, res, next) => {
         //console.log(data);
         return res.json(data);
     } catch (error) {
-        const resp = error.response;
-        //console.log(error);
-        const statusCode = resp.status;
-        const statusMsg = resp.statusText;
-        error.custom_msg = statusMsg;
-        //console.log(`error calling API on url ${url}`);
-        //console.log(statusMsg);
-        //console.log(statusCode);
-        //next(error);
+        let statusCode = 500;
+        let statusMsg = "Unknown error";
+        if (error != undefined && error.hasOwnFeature('response') && error.response != undefined) {
+            const resp = error.response;
+            //console.log(error);
+            const statusCode = resp.status;
+            const statusMsg = resp.statusText;
+        
+        }
+        
+        
         return res.status(statusCode).send(statusMsg);
     }
     
