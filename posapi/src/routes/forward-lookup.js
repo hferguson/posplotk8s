@@ -36,8 +36,8 @@ router.post('/api/position/findcoords', async (req, res, next) => {
         if (error != undefined && error.hasOwnFeature('response') && error.response != undefined) {
             const resp = error.response;
             //console.log(error);
-            const statusCode = resp.status;
-            const statusMsg = resp.statusText;
+            statusCode = resp.status;
+            statusMsg = resp.statusText;
         
         }
         

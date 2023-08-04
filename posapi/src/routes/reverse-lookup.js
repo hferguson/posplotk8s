@@ -42,13 +42,13 @@ router.get('/api/position/addrfrompos/:lat/:lon', async (req, res, next) => {
         //console.log("Got error from Position stack API");
         let statusCode = 500;
         let statusMsg = "Unknown error";
-        if (error != undefined) {
+        if (error != undefined && error.hasOwnFeature('response') && error.response != undefined) {
             console.log(error);
 
             const resp = error.response;
             //console.log(resp);
-            const statusCode = resp.status;
-            const statusMsg = resp.statusText;
+            statusCode = resp.status;
+            statusMsg = resp.statusText;
             error.custom_msg = statusMsg;
         }
         
