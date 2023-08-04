@@ -20,5 +20,5 @@ jobs:
       - uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-      - run: doctl kubernetes cluster kubeconfig posplot-k8s-demo
+      - run: doctl kubernetes cluster kubeconfig save posplot-k8s-demo
       - run: kubectl rollout restart deployment posapi-depl
