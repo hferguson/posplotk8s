@@ -14,5 +14,5 @@ jobs:
       - uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-      - run: doctl kubernetes cluster kubeconfig posplot-k8s-demo
-      - run: kubectl apply -f infra/k8s && kubectl -f infra/k8s-prod
+      - run: doctl kubernetes cluster kubeconfig save posplot-k8s-demo
+      - run: kubectl apply -f infra/k8s && kubectl apply -f infra/k8s-prod
