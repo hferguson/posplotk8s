@@ -5,7 +5,7 @@ const buildClient = ({ req }) => {
     // we are on the server
 
     return axios.create({
-      baseURL: 'http://hfcdevops.xyz/',
+      baseURL: 'https://hfcdevops.xyz/',
       headers: req.headers,
     });
   }else {
