@@ -1,5 +1,5 @@
 import Header  from '../components/header';
-
+import Footer from '../components/Footer';
 const Why = () => {
     return (
         <div className="pageBody">
@@ -24,9 +24,7 @@ const Why = () => {
                 with Typescript, and 2) the original Microservices course had us writing our services in TS, and I wanted 
                 to be sure I grasped to concepts so I transposed back to JS.
             </p>
-            <p>
-                <a href="/">Home</a>
-            </p>
+            <Footer />
         </div>
     )
 };

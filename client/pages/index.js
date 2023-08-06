@@ -1,5 +1,6 @@
 import Router from 'next/router';
 import Header  from '../components/header';
+import Footer from '../components/Footer';
 import MapPanel from '../components/MapPanel';
 const Landing = () => {
     return (
@@ -13,12 +14,16 @@ const Landing = () => {
             </div>
             <div>
                 <ul>
-
+                <li><a href="/why" className="link-info">Why I did this</a></li>
+                <li><a href="/tech" className="link-info">Technical details</a> (you can also look at my Git Hub at the link below)</li>
+                <li><a href="/healthcheck" className="link-info">Health check - a simple nodeJS/express service that checks the other services</a></li>
+                <li><a href="https://github.com/hferguson/posplotk8s" className="link-info">My github repo</a></li>
                 </ul>
-                <li><a href="/why">Why I did this</a></li>
-                <li><a href="/healthcheck">Health check - a simple nodeJS/express service that checks the other services</a></li>
-                <li><a href="https://github.com/hferguson/posplotk8s">My github repo</a></li>
             </div>
+            <p>
+                if you like this project, like me on Git Hub
+            </p>
+            <Footer />
         </div>
     )
 };

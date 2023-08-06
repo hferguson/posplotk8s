@@ -2,6 +2,8 @@
 import useRequest from '../hooks/use-request';
 import { useState, useEffect } from 'react';
 import Header  from '../components/header';
+import Footer from '../components/Footer';
+
 require('dotenv').config();
 
 
@@ -60,6 +62,7 @@ const HealthCheck = () => {
                   </tbody>
                 </table>
             </div>
+            <Footer />
         </div>
     )
 };
