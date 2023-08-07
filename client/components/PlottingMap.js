@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import axios from 'axios';
 import { Map, Marker,  Overlay, ZoomControl} from "pigeon-maps";
 
@@ -13,11 +13,14 @@ import { Map, Marker,  Overlay, ZoomControl} from "pigeon-maps";
  * @returns 
  */
 const PlottingMap = ({centre, waypoints, selectedWP, setWaypoint, setAddresses, setWPlist, delWP}) => {
-    
+    const [zoom, setZoom] = useState(14);
+
     // Event handlers
     const handleBoundsChange = async (event) => {
-        //console.log("Boundary change event");
+        console.log("Boundary change event");
+        console.log(event);
         const bounds = event.bounds;
+        setZoom(event.zoom);
         setWPlist(bounds);
     }
     const handleClick = async (event) => {
@@ -29,7 +32,7 @@ const PlottingMap = ({centre, waypoints, selectedWP, setWaypoint, setAddresses, 
     const handleDelete = async (event) => {
         
         const btn = event.target;
-        console.log(btn);
+        //console.log(btn);
         const id = btn.getAttribute('wpid');
         delWP(id);
         resetRptModal();
@@ -69,7 +72,7 @@ const PlottingMap = ({centre, waypoints, selectedWP, setWaypoint, setAddresses, 
    
     return (
             
-            <Map height={400} width={600} center={[centre.lat, centre.lon]} defaultZoom={14} 
+            <Map height={400} width={600} center={[centre.lat, centre.lon]} zoom={zoom} 
                             onClick={handleMapClick} 
                             onBoundsChanged={handleBoundsChange} >
             {waypoints.map((wp) => {
