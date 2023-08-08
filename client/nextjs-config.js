@@ -1,6 +1,7 @@
 const nextConfig = {
     env:{
-      HEALTHMON_URL: process.env.HEALTHMON_URL
+      HEALTHMON_URL: process.env.HEALTHMON_URL,
+      REACT_APP_GITHUB_CLIENT_ID: process.env
     }
   }
 module.exports = {
