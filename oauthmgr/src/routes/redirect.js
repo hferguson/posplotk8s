@@ -1,7 +1,8 @@
 const express = require('express');
 const axios = require('axios');
-
 const router = express.Router();
+const querystring = require('querystring');
+const getUser = require('../getuser-github');
 var cors = require("cors");
 
 require('dotenv').config();
@@ -9,20 +10,6 @@ const CLIENT_ID = process.env.GITHUB_CLIENT_ID;
 const CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
 
 const GITHUB_URL = process.env.GITHUB_TOKEN_URL;
-
-const parseResponse = (dataStr) => {
-    let data = {};
-    
-    try {
-        dataStr = decodeURI(dataStr).replace(/&/g, '","').replace(/=/g,'":"');
-        dataStr = '{"' + dataStr + '"}';
-        data = JSON.parse(dataStr);
-    } catch (error) {
-        console.error(`Unable to parse string ${dataStr}`);
-        console.error(error);
-    }
-    return data;
-};
 
 router.use(cors({credentials: true, origin: true}));
 /**
@@ -35,15 +22,20 @@ router.get("/api/oauth/redirect", async (req, res) => {
     const headers = {Accept: 'application/json'};
     console.log("OAuth redirect called");
     try {
-        //console.log(`OAuth redirect service called with code ${queryCode}`);
+        console.log(`OAuth redirect service called with code ${queryCode}`);
         //console.log(`url : ${url}`);
         //console.log(payload);
         const resp = await axios.post(url, payload, headers);
-        console.log("Response received");
+        //console.log("Response received");
         //console.log(resp);
-        const data = parseResponse(resp.data);
+        const data = querystring.parse(resp.data);
         const myToken = data.access_token;
         console.log(myToken);
+
+        // Rather than sending token back to client, let's get it here
+        // and save the results into a JWT
+        const userData = getUser(myToken);
+
         const redirUrl = `${process.env.BASE_URL}?access_token=${myToken}`;
         console.log(redirUrl);
         res.redirect(redirUrl);
