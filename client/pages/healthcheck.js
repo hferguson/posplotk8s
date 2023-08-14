@@ -4,10 +4,8 @@ import { useState, useEffect } from 'react';
 import Header  from '../components/header';
 import Footer from '../components/Footer';
 
-require('dotenv').config();
 
-
-const HealthCheck = () => {
+const HealthCheck = ({currentUser}) => {
     const healthURL = '/api/healthmon/scan';
     console.log(healthURL);
 
@@ -37,7 +35,7 @@ const HealthCheck = () => {
 
     return (
         <div className="pageBody">
-            <Header title="Health monitor" />
+            <Header title="Health monitor"  currentUser={currentUser}  />
             <div>
                 <div>Number of services: {services.length}</div>
                 <table className="table">

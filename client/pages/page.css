@@ -28,7 +28,7 @@ body {
     background: var(--bkg-color);
   }
   
-  h1,
+  h1, h2, h3,
   p, ul, li {
     color: var(--text-color);
   }

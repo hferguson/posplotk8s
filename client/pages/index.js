@@ -1,11 +1,19 @@
-import Router from 'next/router';
+import axios from 'axios';
+import {useEffect, useState } from 'react';
+import Button from 'react-bootstrap/Button';
 import Header  from '../components/header';
 import Footer from '../components/Footer';
 import MapPanel from '../components/MapPanel';
-const Landing = () => {
+
+require("dotenv").config()
+
+
+const Landing = ({currentUser}) => {
+    
+    
     return (
-        <div className="pageBody">
-            <Header title="Position Plotter Home page" />
+        <div>
+            <Header title="Position Plot Home Page" currentUser={currentUser} />
             <p>This is a simple map that you can add your own waypoints to.  This service currently hosted on
                 Digital Ocean, and I haven't decided how long I can keep it up.  Note that I didn't make this 
                 a super secure application. Anyone can add or remove waypoints.  As this is just an experiment, 
@@ -24,9 +32,9 @@ const Landing = () => {
                 <li><a href="/todo" className="link-info">To-do list</a> - some of which I may get to</li>
                 </ul>
             </div>
-            <p>
-                if you like this project, like me on Git Hub
-            </p>
+            
+            
+            
             <Footer />
         </div>
     )

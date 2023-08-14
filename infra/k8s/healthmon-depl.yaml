@@ -17,9 +17,9 @@ spec:
           image: hfcdevops/healthmon
           env:
             - name: serviceURLs
-              value: 'http://posapi-svc:3000/api/position/healthcheck,http://waypointstore-svc:3000/api/waypoints/healthcheck'
+              value: 'http://posapi-svc:3000/api/position/healthcheck,http://waypointstore-svc:3000/api/waypoints/healthcheck,http://oauth-svc:3000/api/oauth/healthcheck'
             - name: serviceNames
-              value:  'Position-API,Waypoints-Storage-API'
+              value:  'Position-API,Waypoints-Storage-API,OAuthMgr-API'
 ---
 apiVersion: v1
 kind: Service 

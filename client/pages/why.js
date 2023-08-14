@@ -1,9 +1,9 @@
 import Header  from '../components/header';
 import Footer from '../components/Footer';
-const Why = () => {
+const Why = ({currentUser}) => {
     return (
         <div className="pageBody">
-        <Header title="Why I did this" />
+        <Header title="Why I did this"  currentUser={currentUser} />
             <p>
                 This application is something I put together after taking a Microservices course on Udemy.
                 It covered a lot of stuff from test driven design (TDD) to nodeJS to how to build out your

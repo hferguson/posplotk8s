@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: oauth-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oauth
+  template:
+    metadata:
+      labels:
+        app: oauth
+    spec:
+    # Current warnings due to not specifying resource limits. 
+    # See https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+    # if you deploy someplace where resource limitations would be useful
+      containers:
+        - name: oauth
+          image: hfcdevops/oauth-manager
+          env: 
+            - name: BASE_URL
+              value: http://mywebsite.local
+            - name: GITHUB_URL
+              value: https://github.com/login/oauth/authorize
+            - name: GITHUB_TOKEN_URL
+              value: https://github.com/login/oauth/access_token
+            - name: GITHUB_API_URL
+              value: https://api.github.com/user
+            - name: GITHUB_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: github-secret 
+                  key: GITHUB_CLIENT_ID
+            - name: GITHUB_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: github-secret 
+                  key: GITHUB_CLIENT_SECRET
+            - name: JWT_SECRET
+              valueFrom:  
+                secretKeyRef:
+                  name: jwt-secret 
+                  key: JWT_SECRET 
+---
+apiVersion: v1
+kind: Service 
+metadata:
+  name: oauth-svc
+spec:
+  selector:
+    app: oauth 
+  ports:
+    - name: oauth 
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
