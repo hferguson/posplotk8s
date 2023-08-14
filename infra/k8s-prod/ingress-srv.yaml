@@ -36,6 +36,13 @@ spec:
                 name: waypointstore-svc
                 port:
                   number: 3000
+          - path: /api/oauth/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: oauth-svc
+                port:
+                  number: 3000
           - path: /?(.*)
             pathType: Prefix
             backend:
