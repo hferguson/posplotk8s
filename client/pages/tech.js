@@ -1,11 +1,11 @@
 import Header from "../components/header";
 import Footer from "../components/Footer";
 
-const Tech = () => {
+const Tech = ({currentUser}) => {
 
     return (
         <div className="pageBody">
-            <Header title="Tech Stack" />
+            <Header title="Tech Stack"  currentUser={currentUser} />
             <p>
                 The application was written in Javascript.  I use nodeJS for each microservice as well as the client app itself, 
                 which relies on React and NextJS.  I also have a <a className="link-info" href="https://www.mongodb.com/">Mongo DB</a> 

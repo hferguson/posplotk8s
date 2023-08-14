@@ -20,7 +20,7 @@ spec:
           image: hfcdevops/oauth-manager
           env: 
             - name: BASE_URL
-              value: http://mywebsite.local
+              value: https://hfcdevops.xyz/
             - name: GITHUB_URL
               value: https://github.com/login/oauth/authorize
             - name: GITHUB_TOKEN_URL
