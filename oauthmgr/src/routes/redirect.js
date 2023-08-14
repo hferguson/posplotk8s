@@ -21,7 +21,7 @@ router.get("/api/oauth/redirect", async (req, res) => {
     const url = `${GITHUB_URL}`;
     const payload = {client_id: CLIENT_ID, client_secret: CLIENT_SECRET, code: queryCode};
     const headers = {Accept: 'application/json'};
-    console.log("OAuth redirect called");
+    //console.log("OAuth redirect called");
     
     try {
         console.log(`OAuth redirect service called with code ${queryCode}`);
