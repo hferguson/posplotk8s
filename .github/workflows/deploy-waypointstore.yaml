@@ -5,7 +5,7 @@ on:
     branches:
       - master 
     paths:
-      - 'healthmon/**'
+      - 'waypointstore/**'
 jobs:
   build:
     runs-on: ubuntu-latest 
