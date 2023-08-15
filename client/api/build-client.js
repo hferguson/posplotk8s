@@ -6,7 +6,7 @@ const buildClient = ({ req }) => {
     console.log("Getting server version");
     
     return axios.create({
-      baseURL: 'http://oauth-svc:3000/',
+      baseURL: 'https://hfcdevops.xyz/',
       headers: req.headers,
     });
   }else {
