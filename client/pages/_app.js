@@ -1,9 +1,11 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import '../components/MapPanel.css';
 import '../components/PlottingMap.css';
+import '../components/bootstrap-social.css';
+import '../components/fontawesome.css';
 import './page.css';
 import buildClient from '../api/build-client';
-require
+
 /**
  * The purpose of this file is to apply a bootstrap "wrapper" around each page in this
  * pages directory.  Effectively the value of Component is our page (i.e. index.js). NextJS
@@ -28,10 +30,10 @@ AppComponent.getInitialProps = async (appContext) => {
     //console.log("AppComponent Get Initial Props");
     const context = appContext.ctx;
     try  {
-      //console.log("Calling initial userdata");
+      console.log("Calling initial userdata");
       const client = buildClient(context);
       const {data} = await client.get('/api/oauth/userdata/jwt');
-      //console.log(data);
+      console.log(data);
       let pageProps = {};
       if (appContext.Component.getInitialProps) {
             console.log("Calling child getInitialProps");
@@ -46,6 +48,7 @@ AppComponent.getInitialProps = async (appContext) => {
         currentUser: data
       }
     } catch (err) {
+      console.log(err);
       console.error(err.message);
     }
    

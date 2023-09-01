@@ -56,7 +56,7 @@ const Header = ({currentUser, title}) => {
                 <h3>Welcome guest</h3>
                 <div className="authButtons">
                 <a id="github-button" className="btn btn-block btn-social btn-github" href={githubUrl}>
-                    <i class="fa fa-github"></i> Sign in with GitHub
+                    <i className="fa fa-github"></i> Sign in with GitHub
                 </a>
                 </div>
             </>

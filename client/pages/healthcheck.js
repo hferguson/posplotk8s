@@ -16,8 +16,8 @@ const HealthCheck = ({currentUser}) => {
             method: 'get',
             body: {},
             onSuccess: (data) => {
-                console.log("successful response");
-                console.log(data);
+                //console.log("successful response");
+                //console.log(data);
                 setServices(data);
             }
     });
@@ -25,7 +25,7 @@ const HealthCheck = ({currentUser}) => {
     useEffect(() => {
         console.log("Begin useEffect");
         const interval = setInterval(() => {
-            console.log("Calling heartbeat service");
+            //console.log("Calling heartbeat service");
             doRequest();
         }, 5000);
         return () => clearInterval(interval);
