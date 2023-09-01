@@ -18,6 +18,7 @@ router.post('/api/waypoints/save', async (req, res) => {
         await wp.save();
         payload = wp.toJSON();
     } catch (error) {
+        console.log("Exception while saving");
         return res.status(500).send({"error": error});
     } 
 

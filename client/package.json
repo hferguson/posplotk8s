@@ -13,6 +13,7 @@
   "dependencies": {
     "axios": "^1.4.0",
     "bootstrap": "^5.3.0",
+    "bootstrap-social": "^5.1.1",
     "dotenv": "^16.3.1",
     "next": "^13.4.11",
     "pigeon-maps": "^0.21.3",

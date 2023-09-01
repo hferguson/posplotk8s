@@ -5,11 +5,11 @@ import Header  from '../components/header';
 import Footer from '../components/Footer';
 import MapPanel from '../components/MapPanel';
 
-require("dotenv").config()
+require("dotenv").config();
 
 
 const Landing = ({currentUser}) => {
-    
+    const envName = process.env.NODE_ENV;
     
     return (
         <div>
@@ -20,6 +20,7 @@ const Landing = ({currentUser}) => {
                 and I wanted to make this accessible, I didn't do any sort of cookie based sign-in, but may 
                 do that later.
             </p>
+            <span>Environment: {envName}</span>
             <div className="text-bg-light p-3">
                 <MapPanel />
             </div>
